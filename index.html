@@ -206,31 +206,88 @@
     </section>
 
     <section id="contact">
-      <h2>📬 Contact Me</h2>
-      <p>Have a question or want to collaborate? Send me a quick note 👇</p>
+    <h2>📬 Contact Me</h2>
+    <p style="text-align:center; font-size:1.05em; color:#444; margin-top:-10px;">
+      Have a question or want to collaborate? Send me a quick note 👇
+    </p>
 
-      <form action="https://formsubmit.co/bitadigital@gmail.com" method="POST">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next" value="https://bashoori.github.io/bitadigital/thankyou.html">
+    <form action="https://formsubmit.co/bitadigital@gmail.com" method="POST">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://bashoori.github.io/bitadigital/thankyou.html">
 
-        <input type="text" name="name" placeholder="Your Name" required>
-        <input type="email" name="email" placeholder="Your Email" required>
-        <textarea name="message" rows="4" placeholder="Your Message..." required></textarea>
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" rows="5" placeholder="Your Message..." required></textarea>
 
-        <button type="submit">📨 Send Message</button>
-      </form>
-    </section>
+      <button type="submit">📨 Send Message</button>
+    </form>
+
+    <style>
+      #contact {
+        text-align: center;
+        margin-top: 80px;
+      }
+
+      #contact h2 {
+        display: inline-block;
+        background: linear-gradient(90deg, #0077ff, #00b8d9);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 1.8em;
+      }
+
+      form {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        padding: 40px 30px;
+        max-width: 480px;
+        margin: 40px auto;
+        text-align: left;
+      }
+
+      input, textarea {
+        width: 100%;
+        padding: 14px;
+        margin-bottom: 16px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        font-family: inherit;
+        font-size: 1em;
+        transition: all 0.2s ease;
+      }
+
+      input:focus, textarea:focus {
+        border-color: #0077ff;
+        box-shadow: 0 0 0 3px rgba(0, 119, 255, 0.15);
+        outline: none;
+      }
+
+      button {
+        width: 100%;
+        background: linear-gradient(90deg, #0077ff, #00b8d9);
+        color: white;
+        border: none;
+        padding: 14px 0;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 1em;
+        transition: all 0.2s ease;
+      }
+
+      button:hover {
+        background: linear-gradient(90deg, #005fcc, #009dc0);
+        transform: translateY(-1px);
+      }
+    </style>
+  </section>
+
+
   </main>
 
   <footer>
-    <p>© 2025 <strong>BitaDigital</strong> — Created by 
-      <a href="https://bashoori.github.io/portfolio/" target="_blank">Bita Ashoori</a>
-    </p>
-    <p>
-      💼 <a href="https://bashoori.github.io/portfolio/">Portfolio</a> |
-      💡 <a href="https://bashoori.github.io/bitadigital/">BitaDigital</a> |
-      🎓 <a href="https://bashoori.github.io/freecourseguide/">FreeCourseGuide</a>
-    </p>
+    <p>© 2025 <strong>BitaDigital</strong> </p>
   </footer>
 </body>
 </html>
