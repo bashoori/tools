@@ -1,153 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BitaDigital | Data Tools & Streamlit Apps</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BitaDigital | Smart Data Tools & Streamlit Apps</title>
 
-  <!-- Font & Styling -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <!-- 💡 Hide all GitHub edit or issue links -->
   <style>
+    a[href*="github.com"], a[href*="edit"], a[href*="issues"] {
+      display: none !important;
+    }
+
     body {
-      font-family: 'Inter', sans-serif;
-      margin: 0;
-      background: #f9fbff;
+      font-family: "Inter", "Segoe UI", Arial, sans-serif;
+      background: #f9fbfd;
       color: #222;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
     }
 
     header {
       text-align: center;
-      background: linear-gradient(135deg, #0056b3, #007acc);
+      padding: 40px 20px;
+      background: linear-gradient(90deg, #0077ff, #00b8d9);
       color: white;
-      padding: 2.5rem 1rem;
     }
 
     header h1 {
-      font-size: 2.2rem;
-      margin: 0.5rem 0;
+      margin: 0;
+      font-size: 2.4em;
+      font-weight: 700;
     }
 
     header p {
-      font-size: 1.1rem;
-      margin: 0;
+      margin: 10px 0 0;
+      font-size: 1.1em;
       opacity: 0.9;
     }
 
-    nav {
-      text-align: center;
-      background: #e8f0fb;
-      padding: 1rem 0;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    .banner {
+      display: block;
+      margin: 30px auto;
+      max-width: 900px;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
     }
 
-    nav a {
-      color: #0056b3;
-      text-decoration: none;
-      margin: 0 15px;
-      font-weight: 600;
-    }
-
-    #hero {
-      text-align: center;
-      padding: 3rem 1rem;
-    }
-
-    #hero h2 {
-      color: #0056b3;
-      font-size: 1.8rem;
-    }
-
-    #hero p {
-      max-width: 600px;
-      margin: 0.5rem auto 2rem;
-      font-size: 1.1rem;
-      line-height: 1.6;
-      color: #444;
-    }
-
-    .app-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      max-width: 1000px;
+    main {
+      max-width: 900px;
       margin: 0 auto;
-      padding: 1rem;
+      padding: 40px 20px;
     }
 
-    .app-card {
+    section {
+      margin-bottom: 60px;
+    }
+
+    h2 {
+      font-size: 1.6em;
+      border-left: 4px solid #0077ff;
+      padding-left: 10px;
+    }
+
+    .apps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .card {
       background: white;
       border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      padding: 1.5rem;
-      transition: transform 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      padding: 25px;
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .app-card:hover {
+    .card:hover {
       transform: translateY(-4px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
     }
 
-    .app-card h3 {
-      color: #0056b3;
+    .card h3 {
+      margin: 10px 0;
     }
 
-    .btn, .btn-secondary {
-      display: inline-block;
-      padding: 8px 16px;
-      margin: 8px 4px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 600;
+    .card p {
+      color: #555;
+      font-size: 0.95em;
     }
 
     .btn {
-      background: #0056b3;
+      display: inline-block;
+      background: #0077ff;
       color: white;
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      margin-top: 10px;
+      font-weight: 500;
     }
 
-    .btn-secondary {
-      background: #777;
-      color: white;
+    .btn:hover {
+      background: #005fcc;
     }
 
-    #contact {
-      background: #eef4fb;
-      padding: 3rem 1rem;
-      text-align: center;
-    }
-
+    /* Contact Section */
     form {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      padding: 25px;
       max-width: 500px;
-      margin: auto;
+      margin: 0 auto;
     }
 
     input, textarea {
       width: 100%;
       padding: 10px;
-      margin: 8px 0;
-      border-radius: 6px;
+      margin-bottom: 12px;
       border: 1px solid #ccc;
+      border-radius: 8px;
+      font-family: inherit;
     }
 
     button {
-      background: #0056b3;
+      background: #0077ff;
       color: white;
-      padding: 10px 20px;
       border: none;
-      border-radius: 6px;
-      font-weight: 600;
+      padding: 10px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    button:hover {
+      background: #005fcc;
     }
 
     footer {
       text-align: center;
-      padding: 1.5rem;
-      background: #0056b3;
-      color: white;
-      margin-top: 3rem;
+      background: #f0f4f8;
+      padding: 25px 10px;
+      border-top: 1px solid #ddd;
+      font-size: 0.9em;
     }
 
     footer a {
-      color: #cfe5ff;
+      color: #0077ff;
       text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -158,59 +166,57 @@
     <p>Smart Data Tools & Streamlit Apps by <strong>Bita Ashoori</strong></p>
   </header>
 
-  <nav>
-    <a href="https://bashoori.github.io/portfolio/">💼 Portfolio</a>
-    <a href="https://bashoori.github.io/bitadigital/">💡 BitaDigital</a>
-    <a href="https://bashoori.github.io/freecourseguide/">🎓 FreeCourseGuide</a>
-    <a href="#contact">📬 Contact</a>
-  </nav>
+  <img src="assets/bitadigital-banner.png" alt="BitaDigital Banner" class="banner">
 
-  <section id="hero">
-    <h2>Transform Data into Insight — Instantly</h2>
-    <p>Explore lightweight, browser-based tools built with <strong>Python + Streamlit</strong> to make data work simpler, faster, and more accessible for everyone.</p>
-  </section>
+  <main>
+    <section>
+      <h2>🚀 Featured Apps</h2>
+      <div class="apps">
+        <div class="card">
+          <h3>🧹 Data Cleaning App</h3>
+          <p>Clean messy CSVs — remove nulls, duplicates, and fix formatting instantly.</p>
+          <a href="https://data-cleaning-service.streamlit.app" class="btn">Launch App</a>
+          <br />
+          <a href="https://bitaprojects.gumroad.com/l/data-cleaning-app">Get on Gumroad</a>
+        </div>
 
-  <section id="apps">
-    <h2 style="text-align:center; color:#0056b3;">🧩 Featured Apps</h2>
+        <div class="card">
+          <h3>🧩 JSON → Table Converter</h3>
+          <p>Flatten JSON or NDJSON into simple CSV tables for quick analysis.</p>
+          <a href="https://json-to-table-bashoori.streamlit.app" class="btn">Launch App</a>
+          <br />
+          <a href="https://bitaprojects.gumroad.com/l/json-to-table">Get on Gumroad</a>
+        </div>
 
-    <div class="app-grid">
-      <div class="app-card">
-        <h3>🧹 Data Cleaning App</h3>
-        <p>Clean messy CSV files — remove duplicates, fix nulls, trim spaces, and download ready-to-use datasets.</p>
-        <a href="https://data-cleaning-service.streamlit.app" target="_blank" class="btn">Launch App</a>
-        <a href="https://bitaprojects.gumroad.com/l/data-cleaning-app" target="_blank" class="btn-secondary">Get Full Version</a>
+        <div class="card">
+          <h3>🔗 JSON Normalizer</h3>
+          <p>Relationalize nested JSONs — automatically extract array data into separate tables.</p>
+          <a href="https://json-normalizer-bashoori.streamlit.app" class="btn">Launch App</a>
+          <br />
+          <a href="https://bitaprojects.gumroad.com/l/json-normalizer">Get on Gumroad</a>
+        </div>
       </div>
+    </section>
 
-      <div class="app-card">
-        <h3>🧩 JSON → Table Converter</h3>
-        <p>Convert JSON or NDJSON files into flat, clean CSV tables — perfect for APIs, configs, or log exports.</p>
-        <a href="https://json-to-table-bashoori.streamlit.app" target="_blank" class="btn">Launch App</a>
-        <a href="https://bitaprojects.gumroad.com/l/json-to-table" target="_blank" class="btn-secondary">Get Full Version</a>
-      </div>
+    <section id="contact">
+      <h2>📬 Contact Me</h2>
+      <p>Have a question or want to collaborate? Send me a quick note 👇</p>
 
-      <div class="app-card">
-        <h3>🔗 JSON Normalizer</h3>
-        <p>Flatten and relationalize nested JSON structures into multiple CSVs — perfect for data modeling and ETL.</p>
-        <a href="https://json-normalizer-bashoori.streamlit.app" target="_blank" class="btn">Launch App</a>
-        <a href="https://bitaprojects.gumroad.com/l/json-normalizer" target="_blank" class="btn-secondary">Get Full Version</a>
-      </div>
-    </div>
-  </section>
+      <form action="https://formsubmit.co/bitadigital@gmail.com" method="POST">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://bashoori.github.io/bitadigital/thankyou.html">
 
-  <section id="contact">
-    <h2>📬 Contact Me</h2>
-    <p>Have a question, collaboration idea, or feedback?</p>
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="message" rows="4" placeholder="Your Message..." required></textarea>
 
-    <form action="https://formsubmit.co/bitadigital@gmail.com" method="POST">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <textarea name="message" placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-  </section>
+        <button type="submit">📨 Send Message</button>
+      </form>
+    </section>
+  </main>
 
   <footer>
-    <p>© 2025 BitaDigital | Created by <a href="https://bashoori.github.io/portfolio/">Bita Ashoori</a></p>
+    <p>© 2025 <strong>BitaDigital</strong> — Created by <a href="https://bashoori.github.io/portfolio/" target="_blank">Bita Ashoori</a></p>
     <p>
       💼 <a href="https://bashoori.github.io/portfolio/">Portfolio</a> |
       💡 <a href="https://bashoori.github.io/bitadigital/">BitaDigital</a> |
