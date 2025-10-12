@@ -1,4 +1,4 @@
-# bitadigital# 💡 BitaDigital
+# 💡 BitaDigital
 
 **Smart Data Tools & Streamlit Apps by [Bita Ashoori](https://bashoori.github.io/portfolio/)**  
 Transform data into insight — instantly.  
