@@ -20,11 +20,10 @@ Explore apps that help analysts, engineers, and students clean, transform, and v
 
 ## 🚀 Live Projects
 
-| App | Description | Demo | Get Full Version |
-|-----|--------------|------|------------------|
 | 🧹 **Data Cleaning App** | Clean messy CSVs — remove nulls, duplicates, and trim whitespace | [Launch App](https://data-cleaning-service.streamlit.app) | [Get on Gumroad](https://bitaprojects.gumroad.com/l/data-cleaning-app) |
 | 🧩 **JSON → Table Converter** | Flatten JSON or NDJSON into simple CSV tables | [Launch App](https://json-to-table-bashoori.streamlit.app) | [Get on Gumroad](https://bitaprojects.gumroad.com/l/json-to-table) |
 | 🔗 **JSON Normalizer** | Convert nested JSON into relational CSVs | [Launch App](https://json-normalizer-bashoori.streamlit.app) | [Get on Gumroad](https://bitaprojects.gumroad.com/l/json-normalizer) |
+
 
 ---
 
