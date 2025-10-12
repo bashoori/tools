@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BitaDigital | Smart Data Tools & Streamlit Apps</title>
 
-  <!-- 💡 Hide all GitHub edit or issue links -->
   <style>
+    /* Hide GitHub edit/issue links */
     a[href*="github.com"], a[href*="edit"], a[href*="issues"] {
       display: none !important;
     }
@@ -22,15 +22,16 @@
 
     header {
       text-align: center;
-      padding: 40px 20px;
+      padding: 40px 20px 20px;
       background: linear-gradient(90deg, #0077ff, #00b8d9);
       color: white;
     }
 
     header h1 {
       margin: 0;
-      font-size: 2.4em;
+      font-size: 2.6em;
       font-weight: 700;
+      letter-spacing: 0.5px;
     }
 
     header p {
@@ -41,10 +42,10 @@
 
     .banner {
       display: block;
-      margin: 30px auto;
+      margin: 25px auto 10px;
       max-width: 900px;
       border-radius: 16px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
     }
 
     main {
@@ -53,14 +54,11 @@
       padding: 40px 20px;
     }
 
-    section {
-      margin-bottom: 60px;
-    }
-
     h2 {
       font-size: 1.6em;
       border-left: 4px solid #0077ff;
       padding-left: 10px;
+      margin-bottom: 20px;
     }
 
     .apps {
@@ -80,17 +78,19 @@
     }
 
     .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
     }
 
     .card h3 {
       margin: 10px 0;
+      font-size: 1.3em;
     }
 
     .card p {
       color: #555;
       font-size: 0.95em;
+      margin-bottom: 15px;
     }
 
     .btn {
@@ -100,12 +100,25 @@
       padding: 8px 16px;
       border-radius: 8px;
       text-decoration: none;
-      margin-top: 10px;
+      margin-top: 5px;
       font-weight: 500;
+      transition: background 0.2s;
     }
 
     .btn:hover {
       background: #005fcc;
+    }
+
+    .card a:last-child {
+      display: block;
+      margin-top: 8px;
+      color: #0077ff;
+      text-decoration: none;
+      font-size: 0.9em;
+    }
+
+    .card a:last-child:hover {
+      text-decoration: underline;
     }
 
     /* Contact Section */
@@ -166,7 +179,7 @@
     <p>Smart Data Tools & Streamlit Apps by <strong>Bita Ashoori</strong></p>
   </header>
 
-  <img src="assets/bitadigital-banner.png" alt="BitaDigital Banner" class="banner">
+  <img src="assets/BitaDigital_banner_github_1280x640.png" alt="BitaDigital Banner" class="banner">
 
   <main>
     <section>
@@ -176,7 +189,6 @@
           <h3>🧹 Data Cleaning App</h3>
           <p>Clean messy CSVs — remove nulls, duplicates, and fix formatting instantly.</p>
           <a href="https://data-cleaning-service.streamlit.app" class="btn">Launch App</a>
-          <br />
           <a href="https://bitaprojects.gumroad.com/l/data-cleaning-app">Get on Gumroad</a>
         </div>
 
@@ -184,7 +196,6 @@
           <h3>🧩 JSON → Table Converter</h3>
           <p>Flatten JSON or NDJSON into simple CSV tables for quick analysis.</p>
           <a href="https://json-to-table-bashoori.streamlit.app" class="btn">Launch App</a>
-          <br />
           <a href="https://bitaprojects.gumroad.com/l/json-to-table">Get on Gumroad</a>
         </div>
 
@@ -192,7 +203,6 @@
           <h3>🔗 JSON Normalizer</h3>
           <p>Relationalize nested JSONs — automatically extract array data into separate tables.</p>
           <a href="https://json-normalizer-bashoori.streamlit.app" class="btn">Launch App</a>
-          <br />
           <a href="https://bitaprojects.gumroad.com/l/json-normalizer">Get on Gumroad</a>
         </div>
       </div>
@@ -216,7 +226,9 @@
   </main>
 
   <footer>
-    <p>© 2025 <strong>BitaDigital</strong> — Created by <a href="https://bashoori.github.io/portfolio/" target="_blank">Bita Ashoori</a></p>
+    <p>© 2025 <strong>BitaDigital</strong> — Created by 
+      <a href="https://bashoori.github.io/portfolio/" target="_blank">Bita Ashoori</a>
+    </p>
     <p>
       💼 <a href="https://bashoori.github.io/portfolio/">Portfolio</a> |
       💡 <a href="https://bashoori.github.io/bitadigital/">BitaDigital</a> |
