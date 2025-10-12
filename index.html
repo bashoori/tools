@@ -11,6 +11,10 @@
       display: none !important;
     }
 
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: "Inter", "Segoe UI", Arial, sans-serif;
       background: #f9fbfd;
@@ -114,36 +118,63 @@
     }
 
     /* Contact Section */
+    #contact {
+      text-align: center;
+      margin-top: 80px;
+    }
+
+    #contact h2 {
+      display: inline-block;
+      background: linear-gradient(90deg, #0077ff, #00b8d9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 1.8em;
+      margin-bottom: 10px;
+    }
+
     form {
       background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      padding: 25px;
-      max-width: 500px;
-      margin: 0 auto;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      padding: 40px;
+      max-width: 480px;
+      margin: 40px auto;
+      text-align: left;
     }
 
     input, textarea {
       width: 100%;
-      padding: 10px;
-      margin-bottom: 12px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 18px;
+      border: 1px solid #d0d7de;
+      border-radius: 10px;
       font-family: inherit;
+      font-size: 1em;
+      transition: all 0.2s ease;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #0077ff;
+      box-shadow: 0 0 0 3px rgba(0, 119, 255, 0.15);
+      outline: none;
     }
 
     button {
-      background: #0077ff;
+      width: 100%;
+      background: linear-gradient(90deg, #0077ff, #00b8d9);
       color: white;
       border: none;
-      padding: 10px 18px;
-      border-radius: 8px;
+      padding: 14px 0;
+      border-radius: 10px;
       cursor: pointer;
-      font-weight: 500;
+      font-weight: 600;
+      font-size: 1em;
+      transition: all 0.2s ease;
     }
 
     button:hover {
-      background: #005fcc;
+      background: linear-gradient(90deg, #005fcc, #009dc0);
+      transform: translateY(-1px);
     }
 
     footer {
@@ -175,6 +206,7 @@
     <section>
       <h2>🚀 Featured Apps</h2>
       <div class="apps">
+
         <div class="card">
           <h3>🧹 Data Cleaning App</h3>
           <p>Clean messy CSVs — remove nulls, duplicates, and fix formatting instantly.</p>
@@ -202,92 +234,31 @@
           <a href="https://merge-csv-files.streamlit.app/" class="btn">Launch App</a>
           <a href="https://bitaprojects.gumroad.com/l/csv-merger">Get on Gumroad</a>
         </div>
+
       </div>
     </section>
 
     <section id="contact">
-    <h2>📬 Contact Me</h2>
-    <p style="text-align:center; font-size:1.05em; color:#444; margin-top:-10px;">
-      Have a question or want to collaborate? Send me a quick note 👇
-    </p>
+      <h2>📬 Contact Me</h2>
+      <p style="text-align:center; font-size:1.05em; color:#444; margin-top:-10px;">
+        Have a question or want to collaborate? Send me a quick note 👇
+      </p>
 
-    <form action="https://formsubmit.co/bitadigital@gmail.com" method="POST">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_next" value="https://bashoori.github.io/bitadigital/thankyou.html">
+      <form action="https://formsubmit.co/bitadigital@gmail.com" method="POST">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://bashoori.github.io/bitadigital/thankyou.html">
 
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <textarea name="message" rows="5" placeholder="Your Message..." required></textarea>
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="message" rows="5" placeholder="Your Message..." required></textarea>
 
-      <button type="submit">📨 Send Message</button>
-    </form>
-
-    <style>
-      #contact {
-        text-align: center;
-        margin-top: 80px;
-      }
-
-      #contact h2 {
-        display: inline-block;
-        background: linear-gradient(90deg, #0077ff, #00b8d9);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-size: 1.8em;
-      }
-
-      form {
-        background: white;
-        border-radius: 16px;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-        padding: 40px 30px;
-        max-width: 480px;
-        margin: 40px auto;
-        text-align: left;
-      }
-
-      input, textarea {
-        width: 100%;
-        padding: 14px;
-        margin-bottom: 16px;
-        border: 1px solid #ccc;
-        border-radius: 10px;
-        font-family: inherit;
-        font-size: 1em;
-        transition: all 0.2s ease;
-      }
-
-      input:focus, textarea:focus {
-        border-color: #0077ff;
-        box-shadow: 0 0 0 3px rgba(0, 119, 255, 0.15);
-        outline: none;
-      }
-
-      button {
-        width: 100%;
-        background: linear-gradient(90deg, #0077ff, #00b8d9);
-        color: white;
-        border: none;
-        padding: 14px 0;
-        border-radius: 10px;
-        cursor: pointer;
-        font-weight: 600;
-        font-size: 1em;
-        transition: all 0.2s ease;
-      }
-
-      button:hover {
-        background: linear-gradient(90deg, #005fcc, #009dc0);
-        transform: translateY(-1px);
-      }
-    </style>
-  </section>
-
-
+        <button type="submit">📨 Send Message</button>
+      </form>
+    </section>
   </main>
 
   <footer>
-    <p>© 2025 <strong>BitaDigital</strong> </p>
+    <p>© 2025 <strong>BitaDigital</strong></p>
   </footer>
 </body>
 </html>
