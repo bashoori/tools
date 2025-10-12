@@ -48,7 +48,6 @@ bitadigital/
 
 ## 📬 Contact
 
-💌 Email: [bitadigital@gmail.com](mailto:bitadigital@gmail.com)  
 💼 Portfolio: [bashoori.github.io/portfolio](https://bashoori.github.io/portfolio/)  
 🎓 Free Course Guide: [bashoori.github.io/freecourseguide](https://bashoori.github.io/freecourseguide/)  
 🧠 Gumroad Store: [bitaprojects.gumroad.com](https://bitaprojects.gumroad.com)
