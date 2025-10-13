@@ -30,6 +30,7 @@
       padding: 60px 20px 40px;
       background: linear-gradient(90deg, #0077ff, #00b8d9);
       color: white;
+      position: relative;
     }
 
     header h1 {
@@ -43,6 +44,30 @@
       margin: 10px 0 0;
       font-size: 1.1em;
       opacity: 0.9;
+    }
+
+    /* ===== Home Button ===== */
+    .home-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 999;
+    }
+
+    .home-btn a {
+      background: white;
+      color: #0077ff;
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .home-btn a:hover {
+      background: #f0f0f0;
+      transform: translateY(-2px);
     }
 
     main {
@@ -201,6 +226,11 @@
 
 <body>
   <header>
+    <!-- Home Button -->
+    <div class="home-btn">
+      <a href="https://bashoori.github.io/datawithbita/">🏠 Home</a>
+    </div>
+
     <h1>💡 Data Toolbox</h1>
     <p>Smart Data Tools & Streamlit Apps</p>
   </header>
