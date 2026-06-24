@@ -4,293 +4,97 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Data Toolbox | Smart Data Tools & Streamlit Apps</title>
-  <meta name="description" content="Explore smart Streamlit tools and apps for data engineers — built by Bita Ashoori to simplify cleaning, merging, and transforming data." />
-
+  <meta name="description" content="Explore smart Streamlit tools and apps for data engineers -- built by Bita Ashoori to simplify cleaning, merging, and transforming data." />
   <style>
-    /* Hide GitHub edit/issue links */
-    a[href*="github.com"], a[href*="edit"], a[href*="issues"] {
-      display: none !important;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: "Inter", "Segoe UI", Arial, sans-serif;
-      background: #f9fbfd;
-      color: #222;
-      margin: 0;
-      padding: 0;
-      line-height: 1.6;
-    }
-
-    header {
-      text-align: center;
-      padding: 60px 20px 40px;
-      background: linear-gradient(90deg, #0077ff, #00b8d9);
-      color: white;
-      position: relative;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 2.6em;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
-
-    header p {
-      margin: 10px 0 0;
-      font-size: 1.1em;
-      opacity: 0.9;
-    }
-
-    /* ===== Home Button ===== */
-    .home-btn {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      z-index: 999;
-    }
-
-    .home-btn a {
-      background: white;
-      color: #0077ff;
-      padding: 8px 16px;
-      border-radius: 10px;
-      font-weight: 600;
-      text-decoration: none;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-      transition: background 0.2s ease, transform 0.2s ease;
-    }
-
-    .home-btn a:hover {
-      background: #f0f0f0;
-      transform: translateY(-2px);
-    }
-
-    main {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 40px 20px;
-    }
-
-    h2 {
-      font-size: 1.6em;
-      border-left: 4px solid #0077ff;
-      padding-left: 10px;
-      margin-bottom: 20px;
-    }
-
-    /* === App Cards === */
-    .apps {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 25px;
-      margin-top: 30px;
-    }
-
-    .card {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      padding: 25px;
-      text-align: center;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-    }
-
-    .card h3 {
-      margin: 10px 0;
-      font-size: 1.3em;
-    }
-
-    .card p {
-      color: #555;
-      font-size: 0.95em;
-      margin-bottom: 15px;
-    }
-
-    .btn {
-      display: inline-block;
-      background: #0077ff;
-      color: white;
-      padding: 8px 16px;
-      border-radius: 8px;
-      text-decoration: none;
-      margin-top: 5px;
-      font-weight: 500;
-      transition: background 0.2s;
-    }
-
-    .btn:hover {
-      background: #005fcc;
-    }
-
-    .card a:last-child {
-      display: block;
-      margin-top: 8px;
-      color: #0077ff;
-      text-decoration: none;
-      font-size: 0.9em;
-    }
-
-    .card a:last-child:hover {
-      text-decoration: underline;
-    }
-
-    /* === Contact Section === */
-    #contact {
-      text-align: center;
-      margin-top: 90px;
-    }
-
-    #contact h2 {
-      display: inline-block;
-      background: linear-gradient(90deg, #0077ff, #00b8d9);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-size: 1.8em;
-      margin-bottom: 10px;
-    }
-
-    form {
-      background: white;
-      border-radius: 18px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-      padding: 40px 32px;
-      max-width: 500px;
-      margin: 50px auto;
-      text-align: left;
-    }
-
-    input, textarea {
-      width: 100%;
-      padding: 14px 16px;
-      margin-bottom: 18px;
-      border: 1px solid #d0d7de;
-      border-radius: 10px;
-      font-family: inherit;
-      font-size: 1em;
-      transition: all 0.2s ease;
-    }
-
-    input:focus, textarea:focus {
-      border-color: #0077ff;
-      box-shadow: 0 0 0 3px rgba(0, 119, 255, 0.15);
-      outline: none;
-    }
-
-    button {
-      width: 100%;
-      background: linear-gradient(90deg, #0077ff, #00b8d9);
-      color: white;
-      border: none;
-      padding: 14px 0;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 1em;
-      transition: all 0.2s ease;
-    }
-
-    button:hover {
-      background: linear-gradient(90deg, #005fcc, #009dc0);
-      transform: translateY(-1px);
-    }
-
-    footer {
-      text-align: center;
-      background: #f0f4f8;
-      padding: 25px 10px;
-      border-top: 1px solid #ddd;
-      font-size: 0.9em;
-      margin-top: 60px;
-    }
-
-    footer a {
-      color: #0077ff;
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
+    a[href*="github.com"], a[href*="edit"], a[href*="issues"] { display: none !important; }
+    * { box-sizing: border-box; }
+    body { font-family: "Inter", "Segoe UI", Arial, sans-serif; background: #f9fbfd; color: #222; margin: 0; padding: 0; line-height: 1.6; }
+    header { text-align: center; padding: 60px 20px 40px; background: linear-gradient(90deg, #0077ff, #00b8d9); color: white; position: relative; }
+    header h1 { margin: 0; font-size: 2.6em; font-weight: 700; letter-spacing: 0.5px; }
+    header p { margin: 10px 0 0; font-size: 1.1em; opacity: 0.9; }
+    .home-btn { position: absolute; top: 20px; right: 20px; z-index: 999; }
+    .home-btn a { background: white; color: #0077ff; padding: 8px 16px; border-radius: 10px; font-weight: 600; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.15); transition: background 0.2s ease, transform 0.2s ease; }
+    .home-btn a:hover { background: #f0f0f0; transform: translateY(-2px); }
+    main { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+    h2 { font-size: 1.6em; border-left: 4px solid #0077ff; padding-left: 10px; margin-bottom: 20px; }
+    .apps { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; margin-top: 30px; }
+    .card { background: white; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); padding: 25px; text-align: center; transition: transform 0.2s, box-shadow 0.2s; }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+    .card h3 { margin: 10px 0; font-size: 1.3em; }
+    .card p { color: #555; font-size: 0.95em; margin-bottom: 15px; }
+    .btn { display: inline-block; background: #0077ff; color: white; padding: 8px 16px; border-radius: 8px; text-decoration: none; margin-top: 5px; font-weight: 500; transition: background 0.2s; }
+    .btn:hover { background: #005fcc; }
+    .card a:last-child { display: block; margin-top: 8px; color: #0077ff; text-decoration: none; font-size: 0.9em; }
+    .card a:last-child:hover { text-decoration: underline; }
+    #contact { text-align: center; margin-top: 90px; }
+    #contact h2 { display: inline-block; background: linear-gradient(90deg, #0077ff, #00b8d9); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.8em; margin-bottom: 10px; }
+    form { background: white; border-radius: 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); padding: 40px 32px; max-width: 500px; margin: 50px auto; text-align: left; }
+    input, textarea { width: 100%; padding: 14px 16px; margin-bottom: 18px; border: 1px solid #d0d7de; border-radius: 10px; font-family: inherit; font-size: 1em; transition: all 0.2s ease; }
+    input:focus, textarea:focus { border-color: #0077ff; box-shadow: 0 0 0 3px rgba(0,119,255,0.15); outline: none; }
+    button { width: 100%; background: linear-gradient(90deg, #0077ff, #00b8d9); color: white; border: none; padding: 14px 0; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 1em; transition: all 0.2s ease; }
+    button:hover { background: linear-gradient(90deg, #005fcc, #009dc0); transform: translateY(-1px); }
+    footer { text-align: center; background: #f0f4f8; padding: 25px 10px; border-top: 1px solid #ddd; font-size: 0.9em; margin-top: 60px; }
+    footer a { color: #0077ff; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
   </style>
 </head>
-
 <body>
   <header>
-    <!-- Home Button -->
-    <div class="home-btn">
-      <a href="https://bashoori.github.io/datawithbita/">🏠 Home</a>
-    </div>
-
-    <h1>🧰 Data Toolbox</h1>
+    <div class="home-btn"><a href="https://bashoori.github.io/datawithbita/">Home</a></div>
+    <h1>Data Toolbox</h1>
     <p>Smart Data Tools & Streamlit Apps</p>
   </header>
-
   <main>
     <section>
-      <h2>🚀 Featured Apps</h2>
+      <h2>Featured Apps</h2>
       <div class="apps">
         <div class="card">
-          <h3>🧹 Data Cleaning App</h3>
-          <p>Clean messy CSVs — remove nulls, duplicates, and fix formatting instantly.</p>
+          <h3>Data Cleaning App</h3>
+          <p>Clean messy CSVs -- remove nulls, duplicates, and fix formatting instantly.</p>
           <a href="https://data-cleaning-service.streamlit.app" class="btn">Launch App</a>
           <a href="https://bitaprojects.gumroad.com/l/data-cleaning-app">Get on Gumroad</a>
         </div>
-
         <div class="card">
-          <h3>🧩 JSON → Table Converter</h3>
+          <h3>JSON to Table Converter</h3>
           <p>Flatten JSON or NDJSON into simple CSV tables for quick analysis.</p>
           <a href="https://json-to-table-bashoori.streamlit.app" class="btn">Launch App</a>
           <a href="https://bitaprojects.gumroad.com/l/json-to-table">Get on Gumroad</a>
         </div>
-
         <div class="card">
-          <h3>🔗 JSON Normalizer</h3>
-          <p>Relationalize nested JSONs — automatically extract array data into separate tables.</p>
+          <h3>JSON Normalizer</h3>
+          <p>Relationalize nested JSONs -- automatically extract array data into separate tables.</p>
           <a href="https://json-normalizer-bashoori.streamlit.app" class="btn">Launch App</a>
           <a href="https://bitaprojects.gumroad.com/l/json-normalizer">Get on Gumroad</a>
         </div>
-
         <div class="card">
-          <h3>📊 CSV Merger</h3>
-          <p>Upload multiple CSVs and combine them easily — append rows or merge on a common column.</p>
+          <h3>CSV Merger</h3>
+          <p>Upload multiple CSVs and combine them easily -- append rows or merge on a common column.</p>
           <a href="https://merge-csv-files.streamlit.app/" class="btn">Launch App</a>
           <a href="https://bitaprojects.gumroad.com/l/csv-merger">Get on Gumroad</a>
         </div>
+        <div class="card">
+          <h3>MP3 to Text Transcriber</h3>
+          <p>Upload an audio file and get a clean transcript in seconds -- powered by OpenAI Whisper.</p>
+          <a href="https://mp3-to-text-bashoori.streamlit.app" class="btn">Launch App</a>
+          <a href="https://github.com/bashoori/tools/tree/main/mp3_to_text">View Source</a>
+        </div>
       </div>
     </section>
-
     <section id="contact">
-      <h2>📬 Contact Me</h2>
-      <p style="text-align:center; font-size:1.05em; color:#444; margin-top:-10px;">
-        Have a question or want to collaborate? Send me a quick note 👇
-      </p>
-
+      <h2>Contact Me</h2>
+      <p style="text-align:center; font-size:1.05em; color:#444; margin-top:-10px;">Have a question or want to collaborate? Send me a quick note</p>
       <form action="https://formsubmit.co/bitadigital@gmail.com" method="POST">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_next" value="https://bashoori.github.io/tools/thankyou.html">
-
         <input type="text" name="name" placeholder="Your Name" required>
         <input type="email" name="email" placeholder="Your Email" required>
         <textarea name="message" rows="5" placeholder="Your Message..." required></textarea>
-
-        <button type="submit">📨 Send Message</button>
+        <button type="submit">Send Message</button>
       </form>
     </section>
   </main>
-
   <footer>
-    © 2025 <strong>Bita Ashoori</strong> | Created by 
-    <a href="https://bashoori.github.io/portfolio/" target="_blank">Bita Ashoori</a>
+    2025 <strong>Bita Ashoori</strong> | Created by <a href="https://bashoori.github.io/portfolio/" target="_blank">Bita Ashoori</a>
   </footer>
 </body>
 </html>
