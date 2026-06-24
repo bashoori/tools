@@ -2,24 +2,50 @@ import streamlit as st
 import openai
 import tempfile
 import os
+import math
 from pathlib import Path
+from pydub import AudioSegment
 
-# Helper
+# Helpers
 def _fmt_time(seconds: float) -> str:
     m = int(seconds // 60)
     s = seconds % 60
     return f"{m:02d}:{s:05.2f}"
 
 
+def split_audio(file_path: str, max_mb: int = 24) -> list:
+    audio = AudioSegment.from_file(file_path)
+    file_size = os.path.getsize(file_path)
+    max_bytes = max_mb * 1024 * 1024
+
+    if file_size <= max_bytes:
+        return [file_path]
+
+    n_chunks = math.ceil(file_size / max_bytes) + 1
+    chunk_duration_ms = len(audio) // n_chunks
+    chunks = []
+    suffix = Path(file_path).suffix
+
+    for i in range(n_chunks):
+        start_ms = i * chunk_duration_ms
+        end_ms = min((i + 1) * chunk_duration_ms, len(audio))
+        chunk = audio[start_ms:end_ms]
+        tmp = tempfile.NamedTemporaryFile(delete=False, suffix=suffix)
+        chunk.export(tmp.name, format=suffix.lstrip("."))
+        chunks.append(tmp.name)
+
+    return chunks
+
+
 # Page config
 st.set_page_config(
-    page_title="MP3 to Text Transcriber",
+    page_title="Audio to Text Transcriber",
     page_icon=":microphone:",
     layout="centered",
 )
 
-st.title(":microphone: MP3 to Text Transcriber")
-st.caption("Upload an audio file and get a clean text transcript using OpenAI Whisper.")
+st.title(":microphone: Audio to Text Transcriber")
+st.caption("Upload any audio file -- large files are auto-split and transcribed using OpenAI Whisper.")
 st.divider()
 
 # Sidebar
@@ -53,16 +79,17 @@ LANG_MAP = {
 uploaded_file = st.file_uploader(
     "Upload your audio file",
     type=["mp3", "mp4", "wav", "m4a", "ogg", "webm"],
-    help="Supports MP3, WAV, M4A, MP4, OGG, WEBM -- max 25 MB (OpenAI limit)",
+    help="Any size supported -- large files are automatically split into chunks.",
 )
 
 if uploaded_file:
-    st.audio(uploaded_file, format=f"audio/{Path(uploaded_file.name).suffix.lstrip('.')}")
-    st.caption(f"File: {uploaded_file.name} | {uploaded_file.size / 1024:.1f} KB")
-
-    if uploaded_file.size > 25 * 1024 * 1024:
-        st.error("File exceeds 25 MB. Please compress or trim the audio before uploading.")
-        st.stop()
+    file_size_mb = uploaded_file.size / (1024 * 1024)
+    st.caption(f"File: {uploaded_file.name} | {file_size_mb:.1f} MB")
+    if file_size_mb > 25:
+        st.warning(
+            f"File is {file_size_mb:.1f} MB (over OpenAI 25 MB limit). "
+            f"It will automatically be split into chunks for transcription."
+        )
 
 # Transcribe
 if st.button("Transcribe", type="primary", use_container_width=True, disabled=not uploaded_file):
@@ -71,56 +98,87 @@ if st.button("Transcribe", type="primary", use_container_width=True, disabled=no
         st.error("Please enter your OpenAI API key in the sidebar.")
         st.stop()
 
-    with st.spinner("Transcribing... this may take a moment for longer files."):
-        try:
-            client = openai.OpenAI(api_key=api_key)
+    lang_code = LANG_MAP[language]
 
-            suffix = Path(uploaded_file.name).suffix
-            with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as tmp:
-                tmp.write(uploaded_file.getvalue())
-                tmp_path = tmp.name
+    suffix = Path(uploaded_file.name).suffix
+    with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as tmp:
+        tmp.write(uploaded_file.getvalue())
+        tmp_path = tmp.name
 
-            lang_code = LANG_MAP[language]
+    file_size_mb = os.path.getsize(tmp_path) / (1024 * 1024)
+    needs_split = file_size_mb > 24
 
-            with open(tmp_path, "rb") as audio_file:
-                if output_format == "Timestamped (SRT-style)":
-                    response = client.audio.transcriptions.create(
-                        model="whisper-1",
-                        file=audio_file,
-                        response_format="verbose_json",
-                        timestamp_granularities=["segment"],
-                        **({"language": lang_code} if lang_code else {}),
-                    )
-                    lines = []
-                    for i, seg in enumerate(response.segments, 1):
-                        start = _fmt_time(seg["start"])
-                        end = _fmt_time(seg["end"])
-                        lines.append(f"[{start} -> {end}]\n{seg['text'].strip()}")
-                    transcript = "\n\n".join(lines)
-                else:
-                    response = client.audio.transcriptions.create(
-                        model="whisper-1",
-                        file=audio_file,
-                        response_format="text",
-                        **({"language": lang_code} if lang_code else {}),
-                    )
-                    transcript = response if isinstance(response, str) else response.text
+    try:
+        client = openai.OpenAI(api_key=api_key)
 
-            os.unlink(tmp_path)
+        if needs_split:
+            n_chunks = math.ceil(file_size_mb / 24) + 1
+            status = st.status(
+                f"Large file ({file_size_mb:.1f} MB) -- splitting into ~{n_chunks} chunks...",
+                expanded=True,
+            )
+            with status:
+                chunks = split_audio(tmp_path, max_mb=24)
+                st.write(f"Split into {len(chunks)} chunks. Transcribing...")
+        else:
+            chunks = [tmp_path]
+            status = st.status("Transcribing...", expanded=False)
 
-        except openai.AuthenticationError:
-            st.error("Invalid API key. Please check your OpenAI key.")
-            st.stop()
-        except openai.RateLimitError:
-            st.error("Rate limit hit. Wait a moment and try again.")
-            st.stop()
-        except Exception as e:
-            st.error(f"Transcription failed: {e}")
-            st.stop()
+        all_transcripts = []
 
-    st.success("Transcription complete!")
+        with status:
+            for i, chunk_path in enumerate(chunks):
+                if needs_split:
+                    st.write(f"Transcribing chunk {i + 1} of {len(chunks)}...")
+
+                with open(chunk_path, "rb") as audio_file:
+                    if output_format == "Timestamped (SRT-style)":
+                        response = client.audio.transcriptions.create(
+                            model="whisper-1",
+                            file=audio_file,
+                            response_format="verbose_json",
+                            timestamp_granularities=["segment"],
+                            **({"language": lang_code} if lang_code else {}),
+                        )
+                        lines = []
+                        for seg in response.segments:
+                            start = _fmt_time(seg["start"])
+                            end = _fmt_time(seg["end"])
+                            lines.append(f"[{start} -> {end}]\n{seg['text'].strip()}")
+                        all_transcripts.append("\n\n".join(lines))
+                    else:
+                        response = client.audio.transcriptions.create(
+                            model="whisper-1",
+                            file=audio_file,
+                            response_format="text",
+                            **({"language": lang_code} if lang_code else {}),
+                        )
+                        text = response if isinstance(response, str) else response.text
+                        all_transcripts.append(text)
+
+                if chunk_path != tmp_path:
+                    os.unlink(chunk_path)
+
+            status.update(label="Transcription complete!", state="complete")
+
+        os.unlink(tmp_path)
+
+        separator = "\n\n--- (continued) ---\n\n" if needs_split else ""
+        transcript = separator.join(all_transcripts)
+
+    except openai.AuthenticationError:
+        st.error("Invalid API key. Please check your OpenAI key in the sidebar.")
+        st.stop()
+    except openai.RateLimitError:
+        st.error("Rate limit hit. Wait a moment and try again.")
+        st.stop()
+    except Exception as e:
+        st.error(f"Transcription failed: {e}")
+        st.stop()
+
+    st.success("Done!")
     st.subheader("Transcript")
-    st.text_area("", value=transcript, height=300)
+    st.text_area("", value=transcript, height=350)
 
     col1, col2 = st.columns(2)
     with col1:
@@ -141,22 +199,18 @@ if st.button("Transcribe", type="primary", use_container_width=True, disabled=no
         )
 
     st.divider()
-    word_count = len(transcript.split())
-    char_count = len(transcript)
-    st.caption(f"{word_count:,} words | {char_count:,} characters")
+    st.caption(f"{len(transcript.split()):,} words | {len(transcript):,} characters")
 
 
-# Empty state
 if not uploaded_file:
     st.info("Upload an audio file above to get started.")
     with st.expander("How it works"):
         st.markdown("""
 1. Enter your OpenAI API key in the sidebar
-2. Upload an MP3, WAV, M4A, or other audio file (max 25 MB)
-3. Choose your language and output format
-4. Hit Transcribe -- results appear in seconds
-5. Download the transcript as .txt or .md
+2. Upload an audio file (MP3, MP4, WAV, M4A, OGG, WEBM) -- any size
+3. Files over 25 MB are automatically split into chunks and transcribed in parts
+4. Choose language and output format
+5. Hit Transcribe and download the result
 
-Uses OpenAI Whisper -- one of the most accurate speech recognition models available.
-Cost: ~$0.006 per minute of audio.
+Uses OpenAI Whisper. Cost: ~$0.006 per minute of audio.
         """)
