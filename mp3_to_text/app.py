@@ -3,8 +3,8 @@ import openai
 import tempfile
 import os
 import math
+import subprocess
 from pathlib import Path
-from pydub import AudioSegment
 
 # Helpers
 def _fmt_time(seconds: float) -> str:
